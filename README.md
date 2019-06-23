@@ -12,11 +12,11 @@ This project only support tensors with spatial volume less than ```std::numeric_
 
 2019-5-24: spconv v1.1 released, now indice generation will use hash table as default (CPU code only support hash table). you can use ```use_hash=False``` to use dense table when using CUDA. In addition, add CPU only build support.
 
-## Install on Ubuntu 16.04/18.04
+## Install on ArchLinux
 
-0. Use ```git clone xxx.git --recursive``` to clone this repo.
+0. Install pybind11 using ```sudo pacman -S pybind11```
 
-1. Install boost headers to your system include path, you can use either ```sudo apt-get install libboostall-dev``` or download compressed files from boost official website and copy headers to include path.
+1. Install boost headers to your system include path, you can use either ```sudo pacman -S boost boost-libs``` or download compressed files from boost official website and copy headers to include path.
 
 2. Download cmake >= 3.13.2, then add cmake executables to PATH.
 
