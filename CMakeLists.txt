@@ -8,6 +8,8 @@ else()
     project(SparseConv LANGUAGES CXX VERSION 1.1)
 endif()
 
+set( CMAKE_VERBOSE_MAKEFILE on )
+
 if(WIN32) # true if windows (32 and 64 bit)
     add_compile_definitions(TV_WINDOWS)
 endif()
@@ -36,11 +38,15 @@ if (SPCONV_BuildCUDA)
     add_compile_definitions(SPCONV_CUDA)
 endif()
 # add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
-add_subdirectory(third_party/pybind11)
+find_package(pybind11 REQUIRED)
+message(STATUS "Found pybind11 v${pybind11_VERSION}: ${pybind11_INCLUDE_DIRS}")
 
 set(ALL_LIBS ${TORCH_LIBRARIES}) 
 
-set(ALL_INCLUDE ${PROJECT_SOURCE_DIR}/include)
+set(ALL_INCLUDE
+    ${PROJECT_SOURCE_DIR}/include
+    ${pybind11_INCLUDE_DIRS}
+    ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES} )
 
 if (SPCONV_BuildCUDA)
     set(ALL_LIBS ${ALL_LIBS} ${CUDA_CUDART} ${CUDA_CUBLAS})

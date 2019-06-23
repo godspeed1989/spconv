@@ -2,6 +2,7 @@ if (SPCONV_BuildCUDA)
     add_library(spconv_nms STATIC nms.cu)
     set_target_properties(spconv_nms PROPERTIES VERSION ${PROJECT_VERSION})
     set_target_properties(spconv_nms PROPERTIES SOVERSION 1)
+    set_target_properties(spconv_nms PROPERTIES NO_SYSTEM_FROM_IMPORTED ON)
     target_include_directories(spconv_nms PRIVATE ${ALL_INCLUDE})
     set_property(TARGET spconv_nms PROPERTY CXX_STANDARD 14)
     set_property(TARGET spconv_nms PROPERTY CUDA_STANDARD 14)
@@ -18,7 +19,8 @@ target_include_directories(spconv_utils PRIVATE ${ALL_INCLUDE}
 set_property(TARGET spconv_utils PROPERTY CXX_STANDARD 14)
 set_property(TARGET spconv_utils PROPERTY CUDA_STANDARD 14)
 set_target_properties(spconv_utils PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}"
-                                         SUFFIX "${PYTHON_MODULE_EXTENSION}")
+                                         SUFFIX "${PYTHON_MODULE_EXTENSION}"
+                                         NO_SYSTEM_FROM_IMPORTED ON)
 if (SPCONV_BuildCUDA)
     target_link_libraries(spconv_utils ${CUDA_CUDART} pybind11::module spconv_nms)
 else()
